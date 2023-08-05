@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
   res.send(`Hello world!`);
 });
 
-app.post("/auth/login", (req, res) => {
+app.post("/auth/register", (req, res) => {
   console.log(req.body);
 
   const token = jwt.sign(
