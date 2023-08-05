@@ -1,9 +1,16 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
 const app = express();
 app.use(express.json());
 const PORT = 4444;
+
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => console.log("DB OK!"))
+  .catch((err) => console.log("DB error:", err));
 
 app.get("/", (req, res) => {
   res.send(`Hello world!`);
