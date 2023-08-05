@@ -1,8 +1,8 @@
-const mongoose = require("mongose");
+const mongoose = require("mongoose");
 
-const UserScheme = new mongoose.Shema(
+const UserScheme = new mongoose.Schema(
   {
-    fulllName: {
+    fullName: {
       type: String,
       required: true,
     },
@@ -19,4 +19,6 @@ const UserScheme = new mongoose.Shema(
   { timestamps: true }
 );
 
-export default mongoose.model("User", UserScheme);
+const User = mongoose.model("User", UserScheme);
+
+module.exports = User;
