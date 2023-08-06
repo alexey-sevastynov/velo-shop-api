@@ -54,7 +54,13 @@ app.get("/auth/me", checkAuth, getMe);
 
 app.get("/bicycles", getBicycles);
 app.get("/bicycles/:id", getOneBicycle);
-app.post("/bicycles", checkAuth, postCreateValidation, create);
+app.post(
+  "/bicycles",
+  checkAuth,
+  postCreateValidation,
+  handleValidationErrors,
+  create
+);
 app.delete("/bicycles/:id", checkAuth, removeOneBicycle);
 app.patch(
   "/bicycles/:id",
