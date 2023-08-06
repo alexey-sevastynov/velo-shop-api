@@ -7,6 +7,7 @@ require("dotenv").config();
 
 const { registerValidation } = require("./validations/auth");
 const User = require("./models/User");
+const checkAuth = require("./utils/checkAuth.js");
 
 const app = express();
 app.use(express.json());
@@ -51,16 +52,53 @@ app.post("/auth/register", registerValidation, async (req, res) => {
     console.log(error);
     res.status(500).json({ massage: "failed to register" });
   }
+});
 
-  //   const token = jwt.sign(
-  //     {
-  //       email: req.body.email,
-  //       fullName: "Alexey",
-  //       passwordHash: req.body.passwordHash,
-  //     },
-  //     "secret"
-  //   );
-  //   res.json({ success: true, token });
+app.post("/auth/login", registerValidation, async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const isValidPass = await bcrypt.compare(
+      req.body.password,
+      user._doc.passwordHash
+    );
+
+    if (!isValidPass) {
+      return res.status(404).json({ message: "wrong login or password" });
+    }
+
+    const token = jwt.sign({ _id: user._id }, "secretKey", {
+      expiresIn: "30d", // stop 30 day
+    });
+
+    const { passwordHash, ...userData } = user._doc;
+
+    res.json({ ...userData, token });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ massage: "failed to login" });
+  }
+});
+
+app.get("/auth/me", checkAuth, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "uset not found" });
+    }
+
+    const { passwordHash, ...userData } = user._doc;
+
+    res.json(userData);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ massage: "Not access!" });
+  }
 });
 
 app.listen(PORT, (err) => {
