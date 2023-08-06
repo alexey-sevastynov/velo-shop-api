@@ -1,0 +1,22 @@
+{
+  "fullName": "fullName",
+  "manufacturer": "manufacturer",
+  "article": "article",
+  "image": "image",
+  "availability": true,
+  "price": 20000,
+  "size": "XL",
+  "color": "color",
+  "description": "description",
+  "diameter": "diameter",
+  "material": "material",
+  "tires": "tires",
+  "frame": "frame",
+  "saddle": "saddle",
+  "seatpost": "seatpost",
+  "fork": "saforkddle",
+  "chain": "chain",
+  "brake": "brake",
+  "speed": "speed",
+  "garantine": "garantine"
+}
