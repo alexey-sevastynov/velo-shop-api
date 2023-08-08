@@ -6,6 +6,7 @@ const BicycleScheme = new mongoose.Schema(
       type: String,
       required: true,
     },
+    category: { type: String, require: true },
     manufacturer: {
       type: String,
       required: true,
@@ -28,11 +29,11 @@ const BicycleScheme = new mongoose.Schema(
       required: true,
     },
     size: {
-      type: String,
+      type: Array,
       required: true,
     },
     color: {
-      type: String,
+      type: Array,
       required: true,
     },
     description: {
