@@ -12,6 +12,7 @@ const loginValidation = [
 ];
 const postCreateValidation = [
   body("fullName").isLength({ min: 3 }).isString(),
+  body("category").isString(),
   body("manufacturer").isLength({ min: 3 }).isString(),
   body("article").optional().isString(),
   body("image").optional().isString(),
