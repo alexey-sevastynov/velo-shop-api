@@ -19,6 +19,7 @@ const postCreateValidation = [
   body("image").isArray(),
   body("availability").isBoolean(),
   body("price").isLength({ min: 3 }),
+  body("priceSale"),
   body("size").isArray(),
   body("color").isArray(),
   body("description").isString(),

@@ -28,6 +28,7 @@ const BicycleScheme = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    priceSale: Number,
     size: {
       type: Array,
       required: true,
