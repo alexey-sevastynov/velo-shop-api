@@ -11,7 +11,6 @@ const BicycleScheme = new mongoose.Schema(
     manufacturer: {
       type: String,
       required: true,
-      unique: true,
     },
     article: {
       type: String,
