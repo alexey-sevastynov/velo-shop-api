@@ -47,6 +47,7 @@ const create = async (req, res) => {
     const doc = new Bicycle({
       fullName: req.body.fullName,
       category: req.body.category,
+      novelty: req.body.novelty,
       manufacturer: req.body.manufacturer,
       article: req.body.article,
       image: req.body.image,
