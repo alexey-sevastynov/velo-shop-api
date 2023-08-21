@@ -10,6 +10,7 @@ const getBicycles = async (req, res) => {
 
   try {
     const skip = (page - 1) * ITEMS_PER_PAGE;
+    const allBicyclesPromise = Bicycle.find().populate("user").exec(); // find all-Object information about user
 
     const countPromise = Bicycle.estimatedDocumentCount(query);
     const postsPromise = Bicycle.find(query)
@@ -18,14 +19,19 @@ const getBicycles = async (req, res) => {
       .populate("user")
       .exec(); // find all-Object information about user
 
-    const [count, posts] = await Promise.all([countPromise, postsPromise]);
+    const [count, currentBicyclesOnPage, allBicycles] = await Promise.all([
+      countPromise,
+      postsPromise,
+      allBicyclesPromise,
+    ]);
     const pageCount = count / ITEMS_PER_PAGE;
     res.json({
       pagination: {
         count,
         pageCount,
       },
-      posts,
+      currentBicyclesOnPage,
+      allBicycles,
     });
   } catch (error) {
     console.log(error);
