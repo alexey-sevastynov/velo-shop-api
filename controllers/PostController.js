@@ -1,10 +1,32 @@
 const Bicycle = require("../models/Bicycle");
 
-const getBicycles = async (req, res) => {
-  try {
-    const posts = await Bicycle.find().populate("user").exec(); // find all-Object information about user
+const ITEMS_PER_PAGE = 3;
 
-    res.json(posts);
+const getBicycles = async (req, res) => {
+  const page = req.query.page || 1;
+
+  // put all your query params in here
+  const query = {};
+
+  try {
+    const skip = (page - 1) * ITEMS_PER_PAGE;
+
+    const countPromise = Bicycle.estimatedDocumentCount(query);
+    const postsPromise = Bicycle.find(query)
+      .limit(ITEMS_PER_PAGE)
+      .skip(skip)
+      .populate("user")
+      .exec(); // find all-Object information about user
+
+    const [count, posts] = await Promise.all([countPromise, postsPromise]);
+    const pageCount = count / ITEMS_PER_PAGE;
+    res.json({
+      pagination: {
+        count,
+        pageCount,
+      },
+      posts,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ massage: "failed to find items" });
