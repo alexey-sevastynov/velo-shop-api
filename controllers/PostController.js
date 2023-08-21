@@ -1,6 +1,6 @@
 const Bicycle = require("../models/Bicycle");
 
-const ITEMS_PER_PAGE = 3;
+const ITEMS_PER_PAGE = 9;
 
 const getBicycles = async (req, res) => {
   const page = req.query.page || 1;
