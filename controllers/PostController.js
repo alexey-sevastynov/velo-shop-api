@@ -24,7 +24,7 @@ const getBicycles = async (req, res) => {
       postsPromise,
       allBicyclesPromise,
     ]);
-    const pageCount = count / ITEMS_PER_PAGE;
+    const pageCount = Math.ceil(count / ITEMS_PER_PAGE);
     res.json({
       pagination: {
         count,
