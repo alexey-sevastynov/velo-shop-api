@@ -3,36 +3,37 @@ const Bicycle = require("../models/Bicycle");
 const ITEMS_PER_PAGE = 9;
 
 const getBicycles = async (req, res) => {
-  const page = req.query.page || 1;
+  // const page = req.query.page || 1;
 
   // put all your query params in here
-  const query = {};
+  // const query = {};
 
   try {
-    const skip = (page - 1) * ITEMS_PER_PAGE;
+    // const skip = (page - 1) * ITEMS_PER_PAGE;
     const allBicyclesPromise = Bicycle.find().populate("user").exec(); // find all-Object information about user
 
-    const countPromise = Bicycle.estimatedDocumentCount(query);
-    const postsPromise = Bicycle.find(query)
-      .limit(ITEMS_PER_PAGE)
-      .skip(skip)
-      .populate("user")
-      .exec(); // find all-Object information about user
-
-    const [count, currentBicyclesOnPage, allBicycles] = await Promise.all([
-      countPromise,
-      postsPromise,
-      allBicyclesPromise,
-    ]);
-    const pageCount = Math.ceil(count / ITEMS_PER_PAGE);
-    res.json({
-      pagination: {
-        count,
-        pageCount,
-      },
-      currentBicyclesOnPage,
-      allBicycles,
-    });
+    // const countPromise = Bicycle.estimatedDocumentCount(query);
+    // const postsPromise = Bicycle.find(query)
+    //   .limit(ITEMS_PER_PAGE)
+    //   .skip(skip)
+    //   .populate("user")
+    //   .exec(); // find all-Object information about user
+    const [allBicycles] = await Promise.all([allBicyclesPromise]);
+    // const [count, currentBicyclesOnPage, allBicycles] = await Promise.all([
+    //   countPromise,
+    //   postsPromise,
+    //   allBicyclesPromise,
+    // ]);
+    // const pageCount = Math.ceil(count / ITEMS_PER_PAGE);
+    // res.json({
+    //   pagination: {
+    //     count,
+    //     pageCount,
+    //   },
+    //   currentBicyclesOnPage,
+    //   allBicycles,
+    // });
+    res.json(allBicycles);
   } catch (error) {
     console.log(error);
     res.status(500).json({ massage: "failed to find items" });
