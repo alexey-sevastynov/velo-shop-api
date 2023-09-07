@@ -30,7 +30,7 @@ const {
 const app = express();
 app.use(cors());
 
-app.use(express.json({ limit: "2500kb" }));
+app.use(express.json({ limit: "100000kb" }));
 
 const PORT = 4444;
 
