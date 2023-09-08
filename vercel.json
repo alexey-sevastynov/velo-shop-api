@@ -16,6 +16,10 @@
       "dest": "/"
     },
     {
+      "src": "/",
+      "dest": "uploads/account.jpg"
+    },
+    {
       "src": "/(.+)",
       "dest": "uploads/$1"
     }
