@@ -1,3 +1,5 @@
+const multer = require("multer");
+
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -29,10 +31,22 @@ const {
 
 const app = express();
 app.use(cors());
+app.use("/uploads", express.static("uploads"));
 
 app.use(express.json({ limit: "100000kb" }));
 
 const PORT = 4444;
+
+const storage = multer.diskStorage({
+  destination: (_, __, cb) => {
+    cb(null, "uploads");
+  },
+  filename: (_, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage });
 
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -51,6 +65,10 @@ app.post(
 );
 app.post("/auth/login", loginValidation, handleValidationErrors, login);
 app.get("/auth/me", checkAuth, getMe);
+
+app.post("/uploads", checkAuth, upload.single("image"), (req, res) => {
+  res.json({ url: `/uploads/${req.file.originalname}` });
+});
 
 app.get("/bicycles", getBicycles);
 app.get("/bicycles/:id", getOneBicycle);

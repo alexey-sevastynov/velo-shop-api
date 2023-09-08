@@ -17,7 +17,7 @@ const BicycleScheme = new mongoose.Schema(
       required: true,
     },
     image: {
-      type: Array,
+      type: String,
       required: true,
     },
     availability: {
