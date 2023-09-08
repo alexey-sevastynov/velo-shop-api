@@ -17,8 +17,7 @@
     },
     {
       "src": "/uploads/(.*)",
-      "dest": "./index.js",
-      "methods": ["GET"]
+      "dest": "/uploads/$1"
     }
   ]
 }
