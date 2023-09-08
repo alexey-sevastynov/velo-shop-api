@@ -48,6 +48,8 @@ const app = express();
 app.use(cors());
 app.use("/uploads", express.static("uploads"));
 
+app.use(express.json());
+
 const PORT = 4444;
 
 mongoose
