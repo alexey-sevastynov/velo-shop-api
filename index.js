@@ -1,4 +1,5 @@
 const multer = require("multer");
+const fs = require("fs");
 
 const express = require("express");
 const jwt = require("jsonwebtoken");
@@ -29,16 +30,11 @@ const {
   updateOneBicycle,
 } = require("./controllers/PostController");
 
-const app = express();
-app.use(cors());
-app.use("/uploads", express.static("uploads"));
-
-app.use(express.json({ limit: "100000kb" }));
-
-const PORT = 4444;
-
 const storage = multer.diskStorage({
   destination: (_, __, cb) => {
+    if (!fs.existsSync("uploads")) {
+      fs.mkdirSync("uploads");
+    }
     cb(null, "uploads");
   },
   filename: (_, file, cb) => {
@@ -47,6 +43,14 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
+
+const app = express();
+app.use(cors());
+app.use("/uploads", express.static("uploads"));
+
+app.use(express.json({ limit: "100000kb" }));
+
+const PORT = 4444;
 
 mongoose
   .connect(process.env.MONGODB_URI)
