@@ -50,7 +50,7 @@ app.use("/uploads", express.static("uploads"));
 
 app.use(express.json());
 
-const PORT = 4444;
+const PORT = 4444; // https://velo-shop-api.vercel.app
 
 mongoose
   .connect(process.env.MONGODB_URI)
