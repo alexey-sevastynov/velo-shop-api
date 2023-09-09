@@ -21,6 +21,10 @@
     {
       "src": "/uploads/(.*)",
       "dest": "/"
+    },
+    {
+      "src": "/uploads",
+      "dest": "/"
     }
   ]
 }
