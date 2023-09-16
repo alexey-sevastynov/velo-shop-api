@@ -30,11 +30,11 @@ const BicycleScheme = new mongoose.Schema(
     },
     priceSale: Number,
     size: {
-      type: Array,
+      type: [String],
       required: true,
     },
     color: {
-      type: Array,
+      type: [String],
       required: true,
     },
     description: {
