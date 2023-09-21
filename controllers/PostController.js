@@ -10,7 +10,7 @@ const getBicycles = async (req, res) => {
 
   try {
     // const skip = (page - 1) * ITEMS_PER_PAGE;
-    const allBicyclesPromise = Bicycle.find().populate("user").exec(); // find all-Object information about user
+    const allBicyclesPromise = Bicycle.find(); // find all-Object information about user
 
     // const countPromise = Bicycle.estimatedDocumentCount(query);
     // const postsPromise = Bicycle.find(query)
@@ -44,11 +44,13 @@ const getOneBicycle = async (req, res) => {
   try {
     const postId = req.params.id;
 
-    Bicycle.findOneAndUpdate({ _id: postId })
+    Bicycle.findById(postId)
       .populate("user")
       .then((doc) => res.json(doc))
       .catch((err) =>
-        res.status(500).json({ message: "failed to find items" })
+        res.status(500).json({
+          message: `failed to find items ${postId} , ${err}}`,
+        })
       );
   } catch (error) {
     console.log(error);
