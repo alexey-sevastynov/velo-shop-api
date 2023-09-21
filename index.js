@@ -83,10 +83,9 @@ app.post(
   handleValidationErrors,
   create
 );
-app.delete("/bicycles/:id", checkAuth, removeOneBicycle);
+app.delete("/bicycles/:id", removeOneBicycle);
 app.patch(
   "/bicycles/:id",
-  checkAuth,
   postCreateValidation,
   handleValidationErrors,
   updateOneBicycle
